@@ -22,6 +22,7 @@ public class NThread {
     private Context context;
     private String apiKey;
     private String gameMode;
+    private Stats stats;
 
     // Endpoints
     private String EP_stats;
@@ -54,6 +55,15 @@ public class NThread {
 
     public String getGameMode() {
         return gameMode;
+    }
+    public Stats getPlayerStats(){
+        return stats;
+    }
+
+    // Setters
+
+    public void setStats(Stats stats){
+        this.stats = stats;
     }
 
     // Creamos un reader para serealizar el JSON
@@ -208,13 +218,11 @@ public class NThread {
                         // Recibimos los datros
                         InputStream responseBody = statsConnection.getInputStream();
 
-                        // Enviamos a procesar los datos del Json
-                        estadisticas = readJsonStream(responseBody);
+                        // Enviamos a procesar los datos del Json y guaramos el objeto para ser consultado por otras clases
+                        setStats(readJsonStream(responseBody));
 
                         // Cerramos la conexion
                         statsConnection.disconnect();
-
-                        System.out.println("Kills: " + estadisticas.getGameStats().getKills());
 
 
                     } else if (statsConnection.getResponseCode() == 503) {
