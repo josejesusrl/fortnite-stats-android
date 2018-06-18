@@ -11,8 +11,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -37,12 +35,14 @@ public class NThread {
         this.plataform = plataform;
         this.gameMode = gameMode;
 
-        // Seteamos el api Key
+        // Agregamos el API Key
         apiKey = "fyHRmMRjJg6FTgkbfASi";
 
-        // Seteamos los EndPoints
+        // Agregamos los EndPoints
         EP_stats = "https://fortnite.y3n.co/v2/player/";
     }
+
+    // Getters
 
     public String getPlataform() {
         return plataform;
@@ -56,7 +56,7 @@ public class NThread {
         return gameMode;
     }
 
-    // Funcion para leer el archivo Json
+    // Creamos un reader para serealizar el JSON
     private Stats readJsonStream(InputStream in) throws IOException {
         JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
         try {
@@ -66,11 +66,10 @@ public class NThread {
         }
     }
 
-    // Creamos varias stats para difreentes usuarios
+    // Funcion Iniciar y Finalizar el Serealizado de JSON
     private Stats readStats(JsonReader reader) throws IOException {
-        // Creamos el objeto stats donde se guardara toda la info
+        // En el objeto Stats se guardara toda la informacion del jugador
         Stats stats = null;
-        //reader.beginArray();
         while (reader.hasNext()) {
             stats = readStatsUser(reader);
         }
@@ -78,6 +77,7 @@ public class NThread {
         return stats;
     }
 
+    // Iniciamos el serealizado del Json extrayendo los primeros datos
     private Stats readStatsUser(JsonReader reader) throws IOException {
         String id = "-1";
         String lastUpdate;
@@ -86,40 +86,40 @@ public class NThread {
         String displayNameLowerCase;
         GameStats gameStats = null;
 
-        // Copiamos el reader para extraer otra informacion
+        // TODO crear una copia del reader para extraer datos posteriores a "br" en el json
         JsonReader cReader = reader;
 
-        reader.beginObject();
+        reader.beginObject(); // Ingresamos a la estrucutra inicial del JSON
         while (reader.hasNext()) {
             String name = reader.nextName();
             if (name.equals("_id")) {
                 id = reader.nextString();
                 System.out.println(id);
-            } else if (name.equals("br")) {
+            } else if (name.equals("br")) { // Estrucutura donde se encutra las stats del jugador
                 gameStats = readGameStats(reader);
             } else {
                 reader.skipValue();
             }
         }
+
         reader.endObject();
-
-        // Sacamos los datos despues de br
-
-
         return new Stats(id, gameStats);
     }
 
-    // Funcion para leer las game stats
+    // Ingresamos a la estrucura donde estan los datos y vemos si no contiene nada
     private GameStats readGameStats(JsonReader reader) throws IOException {
-        reader.beginObject();
+        reader.beginObject(); // Entramos a la estrucutra br
         while (reader.hasNext()) {
             if (reader.nextName().equalsIgnoreCase("stats")) {
-                reader.beginObject(); // Etramos a Stats
+                reader.beginObject(); // Entramos a Stats
                 if (reader.nextName().equalsIgnoreCase(getPlataform())) {
-                    reader.beginObject();// Entramos a la paltafomra
+                    reader.beginObject();// Entramos a la estructura de la paltafomra a buscar
+
+                    // Buscamos la estructura  del modo de juego seleccionado
                     while (reader.hasNext()) {
+
                         if (reader.nextName().equalsIgnoreCase(getGameMode())) {
-                            return readPlayerStats(reader);
+                            return readPlayerStats(reader); // Enviamos la estructura a su serializacion
                         } else {
                             reader.skipValue();
                         }
@@ -135,14 +135,14 @@ public class NThread {
         return null;
     }
 
-    // Leemos las stats del jugador segun el game mode
+    // Buscamos y asginamos las estadisticas del usuario al objeto GameStats para retornarlo
     private GameStats readPlayerStats(JsonReader reader) throws IOException {
         int kills = 0, matchesPlayed = 0;
         String lastMatch = null;
         int minutesPlayed = 0, wins = 0, top10 = 0, top25 = 0, deaths = 0;
         double kdp = 0, kpm = 0, tpm = 0, score = 0, winRate = 0;
 
-        reader.beginObject(); // Entramos a la paltaforma
+        reader.beginObject(); // Entramos a la estrucutura de la plataforma seleccionada
         while (reader.hasNext()) {
             String name = reader.nextName();
             if (name.equalsIgnoreCase("kills")) {
@@ -179,7 +179,7 @@ public class NThread {
         return new GameStats(kills, matchesPlayed, lastMatch, minutesPlayed, wins, top10, top25, deaths, kdp, kpm, tpm, score, winRate);
     }
 
-    // Funcion para obtener stats del usuario
+    // Funcion principal para obtener las estadisticas del jugador
     public void getStats() {
 
         AsyncTask.execute(new Runnable() {
