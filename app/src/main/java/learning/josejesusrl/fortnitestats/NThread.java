@@ -59,7 +59,6 @@ public class NThread {
     public Stats getPlayerStats(){
         return stats;
     }
-
     // Setters
 
     public void setStats(Stats stats){
@@ -104,7 +103,6 @@ public class NThread {
             String name = reader.nextName();
             if (name.equals("_id")) {
                 id = reader.nextString();
-                System.out.println(id);
             } else if (name.equals("br")) { // Estrucutura donde se encutra las stats del jugador
                 gameStats = readGameStats(reader);
             } else {
@@ -150,7 +148,7 @@ public class NThread {
         int kills = 0, matchesPlayed = 0;
         String lastMatch = null;
         int minutesPlayed = 0, wins = 0, top10 = 0, top25 = 0, deaths = 0;
-        double kdp = 0, kpm = 0, tpm = 0, score = 0, winRate = 0;
+        double kpd = 0, kpm = 0, tpm = 0, score = 0, winRate = 0;
 
         reader.beginObject(); // Entramos a la estrucutura de la plataforma seleccionada
         while (reader.hasNext()) {
@@ -171,8 +169,8 @@ public class NThread {
                 top25 = reader.nextInt();
             } else if (name.equalsIgnoreCase("deaths")) {
                 deaths = reader.nextInt();
-            } else if (name.equalsIgnoreCase("kdp")) {
-                kdp = reader.nextDouble();
+            } else if (name.equalsIgnoreCase("kpd")) {
+                kpd = reader.nextDouble();
             } else if (name.equalsIgnoreCase("kpm")) {
                 kpm = reader.nextDouble();
             } else if (name.equalsIgnoreCase("tpm")) {
@@ -186,7 +184,7 @@ public class NThread {
             }
         }
         reader.endObject();
-        return new GameStats(kills, matchesPlayed, lastMatch, minutesPlayed, wins, top10, top25, deaths, kdp, kpm, tpm, score, winRate);
+        return new GameStats(kills, matchesPlayed, lastMatch, minutesPlayed, wins, top10, top25, deaths, kpd, kpm, tpm, score, winRate);
     }
 
     // Funcion principal para obtener las estadisticas del jugador

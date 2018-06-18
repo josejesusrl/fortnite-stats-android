@@ -12,13 +12,13 @@ public class GameStats {
     private int top10;
     private int top25;
     private int deaths;
-    private double kdp;
+    private double kpd;
     private double kpm;
     private double tpm;
     private double score;
     private double winRate;
 
-    public GameStats(int kills, int matchesPlayed, String lastMatch, int minutesPlayed, int wins, int top10, int top25, int deaths, double kdp, double kpm, double tpm, double score, double winRate) {
+    public GameStats(int kills, int matchesPlayed, String lastMatch, int minutesPlayed, int wins, int top10, int top25, int deaths, double kpd, double kpm, double tpm, double score, double winRate) {
         this.kills = kills;
         this.matchesPlayed = matchesPlayed;
         this.lastMatch = lastMatch;
@@ -27,7 +27,7 @@ public class GameStats {
         this.top10 = top10;
         this.top25 = top25;
         this.deaths = deaths;
-        this.kdp = kdp;
+        this.kpd = kpd;
         this.kpm = kpm;
         this.tpm = tpm;
         this.score = score;
@@ -102,12 +102,12 @@ public class GameStats {
         this.deaths = deaths;
     }
 
-    public double getKdp() {
-        return kdp;
+    public double getKpd() {
+        return kpd;
     }
 
-    public void setKdp(double kdp) {
-        this.kdp = kdp;
+    public void setKpd(double kdp) {
+        this.kpd = kdp;
     }
 
     public double getKpm() {
