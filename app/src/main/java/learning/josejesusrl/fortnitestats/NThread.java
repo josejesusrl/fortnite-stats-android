@@ -18,23 +18,38 @@ public class NThread {
 
     // Variable con la informacion del usuario
     private String user;
-    private String plataform;
+    private int plataform;
     private Context context;
     private String apiKey;
-    private String gameMode;
+    private int gameMode;
     private Stats stats;
 
     // Endpoints
     private String EP_stats;
 
+    // Constantes
+
+    // Modos de Juego
+    public static final int SOLO = 10;
+    public static final int DUO = 11;
+    public static final int SQUAD = 12;
+    public static final int ALL = 13;
+
+    // Plataformas
+    public static final int PC = 20;
+    public static final int PS4 = 21;
+    public static final int XBOX = 22;
+
+    // Fin Constantes
+
     // Constructor
-    public NThread(Context context, String user, String plataform, String gameMode) {
+    public NThread(Context context, String user, int plataform, int gameMode) {
         // Contexto de la app para enviar Toast
         this.context = context;
 
-        this.user = user;
-        this.plataform = plataform;
-        this.gameMode = gameMode;
+        setUser(user);
+        setPlataform(plataform);
+        setGameMode(gameMode);
 
         // Agregamos el API Key
         apiKey = "fyHRmMRjJg6FTgkbfASi";
@@ -43,27 +58,97 @@ public class NThread {
         EP_stats = "https://fortnite.y3n.co/v2/player/";
     }
 
-    // Getters
 
-    public String getPlataform() {
-        return plataform;
+
+
+
+    // Getters
+    // Metodo para obtener el nombre de la plataforma para el usuario final
+    public String getPlataformName() {
+        if (plataform == PC){
+            return "PC";
+        }else if (plataform == PS4){
+            return "PlayStation 4";
+        }else if(plataform == XBOX){
+            return "Xbox One";
+        }
+        return null;
+    }
+    // Metodo para obtener el codigo de la paltaforma para el JSON
+    private String getPlataform() {
+        if (plataform == PC){
+            return "pc";
+        }else if (plataform == PS4){
+            return "ps4";
+        }else if(plataform == XBOX){
+            return "xbox";
+        }
+        return null;
     }
 
     public String getUser() {
-        return user;
+        return user.replaceAll("%20"," ");
     }
 
     public String getGameMode() {
-        return gameMode;
+        if(gameMode == SOLO){
+            return "Solo";
+        }
+        else if(gameMode == DUO){
+            return "Duo";
+        }
+        else if(gameMode == SQUAD){
+            return "Squad";
+        }
+        else if (gameMode == ALL){
+            return "Todos los modos";
+        }
+        return null;
     }
     public Stats getPlayerStats(){
         return stats;
     }
+
+
     // Setters
 
     public void setStats(Stats stats){
         this.stats = stats;
     }
+
+    public void setUser(String user){
+        this.user = user.replaceAll(" ", "%20");
+    }
+    // Setteamos la plataforma si no concide con ninguno pone -1
+    public void setPlataform(int plataform){
+        if (plataform == PC){
+            this.plataform = PC;
+        }else if (plataform == PS4){
+            this.plataform = PS4;
+        }else if(plataform == XBOX){
+            this.plataform = XBOX;
+        }else {
+            this.plataform = -1;
+        }
+    }
+    // Setteamos el modo de juego si no conide con ninguno pone -1
+    public void setGameMode(int gameMode){
+        if (gameMode == SOLO){
+            this.gameMode = SOLO;
+        }else if(gameMode == DUO){
+            this.gameMode = DUO;
+        }else if(gameMode == SQUAD){
+            this.gameMode = SQUAD;
+        }else if(gameMode  == ALL){
+            this.gameMode = ALL;
+        }else{
+            this.gameMode = -1;
+        }
+    }
+
+
+
+
 
     // Creamos un reader para serealizar el JSON
     private Stats readJsonStream(InputStream in) throws IOException {
