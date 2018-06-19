@@ -144,9 +144,21 @@ public class MainActivity extends AppCompatActivity {
     public void saveUserPreference(View v){
 
     }
-
+    // Funcion para limpiar todos los campos
     public void clearFields(View v){
 
+        // Limpiamos el ListView
+        arrayListView.clear();
+        listViewAdapter.notifyDataSetChanged();
+
+        // Limpiamos el spinner snPlataform
+        snPlataform.setSelection(0);
+
+        // Limpiamos el spinner snGamemode
+        snGamemode.setSelection(0);
+
+        // Limpiamos el editText usuario
+        etPlayer.setText("");
     }
 }
 
