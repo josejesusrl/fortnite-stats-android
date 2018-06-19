@@ -1,5 +1,7 @@
 package learning.josejesusrl.fortnitestats;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -44,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
         snGamemode.setAdapter(snGamemodeAdapter);
         snPlataform.setAdapter(snPlataformAdapter);
         listView.setAdapter(listViewAdapter);
+
+        // Cargamos las preferencias del usuario
+        getUserPreference();
     }
 
     private int getGamemode(){
@@ -106,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
 
             GameStats gameStats = stats.getGameStats();
 
-
             // Ingresamos todos los datos de las estadisticas
             arrayListView.add("Usuario: "+nt.getUser());
             arrayListView.add("Modo de jugo: "+nt.getGameMode());
@@ -141,9 +145,37 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    // Guardamos los datos del usuario
     public void saveUserPreference(View v){
+        String playerName = etPlayer.getText().toString();
+        int gamemode = snGamemode.getSelectedItemPosition();
+        int plataform = snPlataform.getSelectedItemPosition();
 
+        SharedPreferences preferences = getSharedPreferences("FortniteStats", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        // Verificamos si ya tiene guardadas las preferencias si es asi borrar el archivo para dejar de cargar los archivos guardados al inicio de la app
+        if (preferences.contains("playerName")){
+            editor.clear();
+            editor.commit();
+            Toast.makeText(this, "Los datos del jugador fueron borrados", Toast.LENGTH_SHORT).show();
+        }else {
+            editor.putString("playerName", playerName);
+            editor.putInt("gamemode", gamemode);
+            editor.putInt("plataform", plataform);
+            editor.commit();
+
+            Toast.makeText(this, "Los datos del jugador han sido guardados", Toast.LENGTH_SHORT).show();
+        }
     }
+
+    private void getUserPreference(){
+        SharedPreferences preferences = getSharedPreferences("FortniteStats", Context.MODE_PRIVATE);
+        etPlayer.setText(preferences.getString("playerName", ""));
+        snGamemode.setSelection(preferences.getInt("gamemode", 0));
+        snPlataform.setSelection(preferences.getInt("plataform", 0));
+    }
+
     // Funcion para limpiar todos los campos
     public void clearFields(View v){
 
