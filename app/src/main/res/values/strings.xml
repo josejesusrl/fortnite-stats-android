@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">FortniteStats</string>
+    <string name="app_name">Fortnites Stats</string>
+    <string name="name_player">Nombre de jugador</string>
+    <string name="game_mode">Modo de juego</string>
+    <string name="plataform">Plataforma</string>
 </resources>
