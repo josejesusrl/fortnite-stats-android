@@ -1,5 +1,11 @@
 package learning.josejesusrl.fortnitestats;
 
+import android.util.Log;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class GameStats {
 
     // Todos los datos que puede contener sobre el jugador, ya sea en SOLO, DUO o SQUAD
@@ -55,7 +61,17 @@ public class GameStats {
     }
 
     public String getLastMatch() {
-        return lastMatch;
+        try {
+            String dateSubString = lastMatch.substring(0, 10);
+            SimpleDateFormat parser = new SimpleDateFormat("yy-MM-dd");
+            SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yy");
+
+            Date date = parser.parse(dateSubString);
+            return formater.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public void setLastMatch(String lastMatch) {
