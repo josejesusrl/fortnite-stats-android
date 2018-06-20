@@ -205,7 +205,7 @@ public class NThread {
         while (reader.hasNext()) {
             if (reader.nextName().equalsIgnoreCase("stats")) {
                 reader.beginObject(); // Entramos a Stats
-                if (reader.nextName().equalsIgnoreCase(getPlataform())) {
+                if (reader.nextName().equalsIgnoreCase(getPlataform()) && reader.hasNext()) {
                     reader.beginObject();// Entramos a la estructura de la paltafomra a buscar
 
                     // Buscamos la estructura  del modo de juego seleccionado
@@ -240,29 +240,29 @@ public class NThread {
             String name = reader.nextName();
             if (name.equalsIgnoreCase("kills")) {
                 kills = reader.nextInt();
-            } else if (name.equalsIgnoreCase("matchesPlayed")) {
+            } else if (name.equalsIgnoreCase("matchesPlayed") && reader.peek() != JsonToken.NULL) {
                 matchesPlayed = reader.nextInt();
-            } else if (name.equalsIgnoreCase("lastMatch")) {
+            } else if (name.equalsIgnoreCase("lastMatch") && reader.peek() != JsonToken.NULL) {
                 lastMatch = reader.nextString();
-            } else if (name.equalsIgnoreCase("minutesPlayed")) {
+            } else if (name.equalsIgnoreCase("minutesPlayed") && reader.peek() != JsonToken.NULL) {
                 minutesPlayed = reader.nextInt();
-            } else if (name.equalsIgnoreCase("wins")) {
+            } else if (name.equalsIgnoreCase("wins") && reader.peek() != JsonToken.NULL) {
                 wins = reader.nextInt();
-            } else if (name.equalsIgnoreCase("top10")) {
+            } else if (name.equalsIgnoreCase("top10") && reader.peek() != JsonToken.NULL) {
                 top10 = reader.nextInt();
-            } else if (name.equalsIgnoreCase("top25")) {
+            } else if (name.equalsIgnoreCase("top25") && reader.peek() != JsonToken.NULL) {
                 top25 = reader.nextInt();
-            } else if (name.equalsIgnoreCase("deaths")) {
+            } else if (name.equalsIgnoreCase("deaths") && reader.peek() != JsonToken.NULL) {
                 deaths = reader.nextInt();
-            } else if (name.equalsIgnoreCase("kpd")) {
+            } else if (name.equalsIgnoreCase("kpd") && reader.peek() != JsonToken.NULL) {
                 kpd = reader.nextDouble();
-            } else if (name.equalsIgnoreCase("kpm")) {
+            } else if (name.equalsIgnoreCase("kpm") && reader.peek() != JsonToken.NULL) {
                 kpm = reader.nextDouble();
-            } else if (name.equalsIgnoreCase("tpm")) {
+            } else if (name.equalsIgnoreCase("tpm") && reader.peek() != JsonToken.NULL) {
                 tpm = reader.nextDouble();
-            } else if (name.equalsIgnoreCase("score")) {
+            } else if (name.equalsIgnoreCase("score") && reader.peek() != JsonToken.NULL) {
                 score = reader.nextDouble();
-            } else if (name.equalsIgnoreCase("winRate")) {
+            } else if (name.equalsIgnoreCase("winRate") && reader.peek() != JsonToken.NULL) {
                 winRate = reader.nextDouble();
             } else {
                 reader.skipValue();

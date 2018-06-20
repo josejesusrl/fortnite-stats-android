@@ -110,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
         if (stats != null){
 
             GameStats gameStats = stats.getGameStats();
+            arrayListView.clear();
 
             // Ingresamos todos los datos de las estadisticas
             arrayListView.add("Usuario: "+nt.getUser());
@@ -126,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
             Log.i("MainAct.putStats", "Las Stats fueron añadidas: "+stats.getId());
         }else{
             Log.w("MainActivity", "Los Stats son nullos");
+            Toast.makeText(this,"No se encontro el nombre de jugador", Toast.LENGTH_SHORT).show();
         }
     }
 
