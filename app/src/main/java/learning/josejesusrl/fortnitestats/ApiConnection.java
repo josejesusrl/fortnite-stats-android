@@ -14,7 +14,7 @@ import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class NThread {
+public class ApiConnection {
 
     // Variable con la informacion del usuario
     private String user;
@@ -43,7 +43,7 @@ public class NThread {
     // Fin Constantes
 
     // Constructor
-    public NThread(Context context, String user, int plataform, int gameMode) {
+    public ApiConnection(String user, int plataform, int gameMode) {
         // Contexto de la app para enviar Toast
         this.context = context;
 
@@ -275,50 +275,45 @@ public class NThread {
     // Funcion principal para obtener las estadisticas del jugador
     public void getStats() {
 
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                Stats estadisticas;
-                // Creaos la URL con el EndPoint de Fortnite stats
-                URL fortniteStatsEndPoint = null;
+        Stats estadisticas;
+        // Creaos la URL con el EndPoint de Fortnite stats
+        URL fortniteStatsEndPoint = null;
 
 
-                try {
-                    fortniteStatsEndPoint = new URL(EP_stats + getUser());
+        try {
+            fortniteStatsEndPoint = new URL(EP_stats + getUser());
 
 
-                    // Creamos la conexion al EndPoint
-                    HttpsURLConnection statsConnection =
-                            (HttpsURLConnection) fortniteStatsEndPoint.openConnection();
-                    // Agregamos headers para la conexion
-                    statsConnection.setRequestProperty("User-Agent", " Java Request");
-                    // Agregamos la Key del api de Fortnite Stats
-                    statsConnection.setRequestProperty("X-Key", apiKey);
+            // Creamos la conexion al EndPoint
+            HttpsURLConnection statsConnection =
+                    (HttpsURLConnection) fortniteStatsEndPoint.openConnection();
+            // Agregamos headers para la conexion
+            statsConnection.setRequestProperty("User-Agent", " Java Request");
+            // Agregamos la Key del api de Fortnite Stats
+            statsConnection.setRequestProperty("X-Key", apiKey);
 
-                    // Recibiendo respuestas
+            // Recibiendo respuestas
 
-                    if (statsConnection.getResponseCode() == 200) {
-                        // Recibimos los datros
-                        InputStream responseBody = statsConnection.getInputStream();
+            if (statsConnection.getResponseCode() == 200) {
+                // Recibimos los datros
+                InputStream responseBody = statsConnection.getInputStream();
 
-                        // Enviamos a procesar los datos del Json y guaramos el objeto para ser consultado por otras clases
-                        setStats(readJsonStream(responseBody));
+                // Enviamos a procesar los datos del Json y guaramos el objeto para ser consultado por otras clases
+                setStats(readJsonStream(responseBody));
 
-                        // Cerramos la conexion
-                        statsConnection.disconnect();
+                // Cerramos la conexion
+                statsConnection.disconnect();
 
 
-                    } else if (statsConnection.getResponseCode() == 503) {
-                        System.out.println("Error 503");
-                    } else if (statsConnection.getResponseCode() == 429) {
-                        System.out.println("Error 429");
-                    }
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            } else if (statsConnection.getResponseCode() == 503) {
+                System.out.println("Error 503");
+            } else if (statsConnection.getResponseCode() == 429) {
+                System.out.println("Error 429");
             }
-        });
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

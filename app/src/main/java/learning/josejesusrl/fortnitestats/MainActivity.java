@@ -2,11 +2,11 @@ package learning.josejesusrl.fortnitestats;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -14,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,17 +55,17 @@ public class MainActivity extends AppCompatActivity {
     private int getGamemode(){
         switch (snGamemode.getSelectedItemPosition()){
             case 0:
-                Log.d("MainAct.getGamemode", "Modo de juego seleccionado: "+NThread.SOLO);
-                return NThread.SOLO;
+                Log.d("MainAct.getGamemode", "Modo de juego seleccionado: "+ ApiConnection.SOLO);
+                return ApiConnection.SOLO;
             case 1:
-                Log.d("MainAct.getGamemode", "Modo de juego seleccionado: "+NThread.DUO);
-                return NThread.DUO;
+                Log.d("MainAct.getGamemode", "Modo de juego seleccionado: "+ ApiConnection.DUO);
+                return ApiConnection.DUO;
             case 2:
-                Log.d("MainAct.getGamemode", "Modo de juego seleccionado: "+NThread.SQUAD);
-                return NThread.SQUAD;
+                Log.d("MainAct.getGamemode", "Modo de juego seleccionado: "+ ApiConnection.SQUAD);
+                return ApiConnection.SQUAD;
             case 3:
-                Log.d("MainAct.getGamemode", "Modo de juego seleccionado: "+NThread.ALL);
-                return NThread.ALL;
+                Log.d("MainAct.getGamemode", "Modo de juego seleccionado: "+ ApiConnection.ALL);
+                return ApiConnection.ALL;
             default:
                 Log.d("MainAct.getGamemode", "Modo de juego seleccionado: "+-1);
                 return -1;
@@ -73,38 +74,23 @@ public class MainActivity extends AppCompatActivity {
     private int getPlataform(){
         switch (snPlataform.getSelectedItemPosition()){
             case 0:
-                Log.d("MainAct.getPlataform", "Plataforma seleccionada: "+NThread.PC);
-                return NThread.PC;
+                Log.d("MainAct.getPlataform", "Plataforma seleccionada: "+ ApiConnection.PC);
+                return ApiConnection.PC;
             case 1:
-                Log.d("MainAct.getPlataform", "Plataforma seleccionada: "+NThread.PS4);
-                return NThread.PS4;
+                Log.d("MainAct.getPlataform", "Plataforma seleccionada: "+ ApiConnection.PS4);
+                return ApiConnection.PS4;
             case 2:
-                Log.d("MainAct.getPlataform", "Plataforma seleccionada: "+NThread.XBOX);
-                return NThread.XBOX;
+                Log.d("MainAct.getPlataform", "Plataforma seleccionada: "+ ApiConnection.XBOX);
+                return ApiConnection.XBOX;
             default:
                 Log.d("MainAct.getPlataform", "Plataforma seleccionada: "+-1);
                 return -1;
         }
     }
-    // Metodo para crear el objeto Nthread y regresar el mismo objeto ya con las stats
-    private NThread makeStats(){
-        NThread nt = new NThread(this, etPlayer.getText().toString(), getPlataform(), getGamemode());
-        nt.getStats();
 
-        Toast.makeText(this, "Un momento porfavor...", Toast.LENGTH_LONG);
 
-        // Esperamos al servidor y al parse
-        try {
-            Thread.sleep(3000);
-        } catch(InterruptedException e) {}
-
-        // Retornamos el objeto Stats ya con las estadisticas del usuario
-        return nt;
-    }
-
-    // Metodo para colocar las estadisticas en la GUI
-    private void putStats(){
-        NThread nt = makeStats();
+    // Metodo para colocar las estadisticas en la GUI obtenidas del AsyncTask
+    private void putStats(ApiConnection nt){
         Stats stats = nt.getPlayerStats();
 
         if (stats != null){
@@ -142,7 +128,9 @@ public class MainActivity extends AppCompatActivity {
             Log.i("MainActivity.getStats()", "No se a seleccionado ningun modo de juego");
         }
         if (getPlataform() != -1 && getGamemode() != -1){
-            putStats();
+            // Creamos el AsyncTask para mantener la gui en un thread diferente
+            GetStatsOnAsyncTask getStatsOnAsyncTask = new GetStatsOnAsyncTask();
+            getStatsOnAsyncTask.execute(etPlayer.getText().toString(), String.valueOf(getPlataform()), String.valueOf(getGamemode()));
         }
 
     }
@@ -194,5 +182,32 @@ public class MainActivity extends AppCompatActivity {
         // Limpiamos el editText usuario
         etPlayer.setText("");
     }
+
+    private class GetStatsOnAsyncTask extends AsyncTask<String, Void, ApiConnection>{
+
+        @Override
+        protected void onPostExecute(ApiConnection apiConnection) {
+           // super.onPostExecute(apiConnection);
+            if (apiConnection == null){
+                Toast.makeText(getBaseContext(), "No se encontro el jugador", Toast.LENGTH_SHORT).show();
+                Log.w("GetStatsAsync", "No se encontro el jugador o ocurrio un error");
+            }else{
+                // Ya con las Stats descargadas colocamos las stats en la gui
+                putStats(apiConnection);
+                Toast.makeText(getBaseContext(), "Descarga de estadisticas finalizada", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+
+        @Override
+        protected ApiConnection doInBackground(String... strings) {
+            // Obtenemos los valores para inicializar el objeto Nthread
+            ApiConnection apiConnection = new ApiConnection(strings[0], Integer.parseInt(strings[1]), Integer.parseInt(strings[2]));
+            apiConnection.getStats();
+            return apiConnection;
+        }
+    }
+
 }
+
 
