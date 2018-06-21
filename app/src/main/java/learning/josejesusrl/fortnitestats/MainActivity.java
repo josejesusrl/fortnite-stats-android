@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         String[] gameModes = {"Solo", "Duo", "Squad", "Todos"};
         String[] plataforms = {"PC", "PlayStation 4", "Xbox One"};
         arrayListView = new ArrayList<String>();
-        arrayListView.add("Ingresa los datos para ver tus estadisticas de juego");
+        arrayListView.add("Ingresa los datos para ver tus estadísticas de juego");
 
         ArrayAdapter<String> snPlataformAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, plataforms);
         ArrayAdapter<String> snGamemodeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, gameModes);
@@ -118,18 +118,18 @@ public class MainActivity extends AppCompatActivity {
             Log.i("MainAct.putStats", "Las Stats fueron añadidas: "+stats.getId());
         }else{
             Log.w("MainActivity", "Los Stats son nullos");
-            Toast.makeText(this,"No se encontro el nombre de jugador", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"No se encontró el nombre de jugador", Toast.LENGTH_SHORT).show();
         }
     }
 
     // Obtenemos las estadicas llamando al objeto Stats que se encarga de depurar las estadisticas
     public void getStats(View v){
         if (getPlataform() == -1){
-            Toast.makeText(this, "Porfavor selecciona una plataforma", Toast.LENGTH_SHORT);
+            Toast.makeText(this, "Por favor selecciona una plataforma", Toast.LENGTH_SHORT);
             Log.i("MainActivity.getStats()", "No se a seleccionado ninguna plataforma");
         }
         if (getGamemode() == -1){
-            Toast.makeText(this, "Porfavor selecciona un modo de juego", Toast.LENGTH_SHORT);
+            Toast.makeText(this, "Por favor selecciona un modo de juego", Toast.LENGTH_SHORT);
             Log.i("MainActivity.getStats()", "No se a seleccionado ningun modo de juego");
         }
         if (getPlataform() != -1 && getGamemode() != -1){
@@ -196,18 +196,18 @@ public class MainActivity extends AppCompatActivity {
             progressDialog.dismiss();
             if (apiConnection == null){
                 Toast.makeText(getBaseContext(), "No se encontro el jugador", Toast.LENGTH_SHORT).show();
-                Log.w("GetStatsAsync", "No se encontro el jugador o ocurrio un error");
+                Log.w("GetStatsAsync", "No se encontró el jugador u ocurrió un error al descargar las estadísticas ");
             }else{
                 // Ya con las Stats descargadas colocamos las stats en la gui
                 putStats(apiConnection);
-                Toast.makeText(getBaseContext(), "Descarga de estadisticas finalizada", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "Descarga de estadísticas finalizada", Toast.LENGTH_SHORT).show();
             }
 
         }
 
         @Override
         protected void onPreExecute() {
-            progressDialog.setMessage("Descargando estadisticas");
+            progressDialog.setMessage("Descargando estadísticas");
             progressDialog.show();
         }
 

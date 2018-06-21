@@ -160,7 +160,7 @@ public class ApiConnection {
         }
     }
 
-    // Funcion Iniciar y Finalizar el Serealizado de JSON
+    // Funcion Iniciar y Finalizar la Serializacion de JSON
     private Stats readStats(JsonReader reader) throws IOException {
         // En el objeto Stats se guardara toda la informacion del jugador
         Stats stats = null;
@@ -171,7 +171,7 @@ public class ApiConnection {
         return stats;
     }
 
-    // Iniciamos el serealizado del Json extrayendo los primeros datos
+    // Iniciamos la serializacion del Json extrayendo los primeros datos
     private Stats readStatsUser(JsonReader reader) throws IOException {
         String id = "-1";
         String lastUpdate;
@@ -206,7 +206,7 @@ public class ApiConnection {
             if (reader.nextName().equalsIgnoreCase("stats")) {
                 reader.beginObject(); // Entramos a Stats
                 if (reader.nextName().equalsIgnoreCase(getPlataform()) && reader.hasNext()) {
-                    reader.beginObject();// Entramos a la estructura de la paltafomra a buscar
+                    reader.beginObject();// Entramos a la estructura de la plataforma a buscar
 
                     // Buscamos la estructura  del modo de juego seleccionado
                     while (reader.hasNext()) {
