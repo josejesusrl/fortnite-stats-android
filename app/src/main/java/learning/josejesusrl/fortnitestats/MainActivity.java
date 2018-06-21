@@ -1,5 +1,6 @@
 package learning.josejesusrl.fortnitestats;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -18,11 +19,13 @@ import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
-    ListView listView;
-    EditText etPlayer;
-    Spinner snPlataform, snGamemode;
-    ArrayList<String> arrayListView;
-    ArrayAdapter<String> listViewAdapter;
+    private ListView listView;
+    private EditText etPlayer;
+    private Spinner snPlataform, snGamemode;
+    private ArrayList<String> arrayListView;
+    private ArrayAdapter<String> listViewAdapter;
+
+    protected ProgressDialog progressDialog;
 
 
     @Override
@@ -34,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
         snGamemode = (Spinner) findViewById(R.id.snGameMode);
         snPlataform = (Spinner) findViewById(R.id.snPlataform);
         etPlayer = (EditText) findViewById(R.id.etNombre);
+
+        progressDialog = new ProgressDialog(this);
 
         String[] gameModes = {"Solo", "Duo", "Squad", "Todos"};
         String[] plataforms = {"PC", "PlayStation 4", "Xbox One"};
@@ -188,6 +193,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(ApiConnection apiConnection) {
            // super.onPostExecute(apiConnection);
+            progressDialog.dismiss();
             if (apiConnection == null){
                 Toast.makeText(getBaseContext(), "No se encontro el jugador", Toast.LENGTH_SHORT).show();
                 Log.w("GetStatsAsync", "No se encontro el jugador o ocurrio un error");
@@ -197,6 +203,12 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), "Descarga de estadisticas finalizada", Toast.LENGTH_SHORT).show();
             }
 
+        }
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog.setMessage("Descargando estadisticas");
+            progressDialog.show();
         }
 
         @Override
