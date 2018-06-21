@@ -1,34 +1,33 @@
 ###Features
-
-- Buscar estadisticas por jugador, Plataforma y Modo de juego
-- Guardar del jugador para posterior uso
-- Las estadisticas disponibles: Partidas jugadas, Fecha Ultima Partida,  Victorias, K/D ratio y Ratio de Victorias.
-
-
-###Proximas Features
 ---
-**Control de estadisticas**
+- Buscar estadísticas por jugador, Plataforma y Modo de juego
+- Guardar del jugador para posterior uso
+- Las estadísticas disponibles: Partidas jugadas, Fecha Ultima Partida,  Victorias, K/D ratio y Ratio de Victorias.
 
-- Llevar control y registro de las estadisticas del jugador a lo largo del tiempo
-- Exportar estadisticas a otras apps
-- Guardar screenshots con imagenes personalizadas de las estadisticas
 
+###Próximas Features
+---
+**Control de estadísticas**
+
+- Llevar control y registro de lasestadísticass del jugador a lo largo del tiempo
+- Exportar estadísticas a otras apps
+- Guardar screenshots con imágeness personalizadas de las estadísticass
 
 ###Images
-Imagenes del proyecto:
+Imágenes del proyecto:
 
 ![](https://preview.ibb.co/dP2fS8/Screenshot_1529618446.png)
 
-> Sin descargar estadisticas.
+> Sin descargar estadísticas.
 
 ![](https://preview.ibb.co/m6D9LT/Screenshot_1529618458.png)
 
-> Esperando la descarga de estadisticas
+> Esperando la descarga de estadísticas
 
 
 ![](https://preview.ibb.co/ewfpLT/Screenshot_1529618461.png)
 
-> Mostrando estadisticas del jugador
+> Mostrando estadísticas del jugador
 
 
 ###End
