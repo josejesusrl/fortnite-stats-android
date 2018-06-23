@@ -8,7 +8,7 @@ public class Stats {
     // Todos los datos que contienen las stats del juego
 
     private String id;
-    private GameStats stats;
+    private PlataformStats stats;
     private String lastUpdate;
     private String userID;
     private String diplayName;
@@ -20,7 +20,7 @@ public class Stats {
 
 
 
-    public Stats(String id, GameStats stats) {
+    public Stats(String id, PlataformStats stats) {
         this.id = id;
         /**
         this.lastUpdate = lastUpdate;
@@ -54,7 +54,7 @@ public class Stats {
         return displayNameLowerCase;
     }
 
-    public GameStats getStats() {
+    public PlataformStats getStats() {
         return stats;
     }
 }
