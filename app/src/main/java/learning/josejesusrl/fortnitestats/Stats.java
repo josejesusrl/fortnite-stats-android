@@ -1,21 +1,26 @@
 package learning.josejesusrl.fortnitestats;
 
+import java.util.Date;
+
 public class Stats {
 
 
     // Todos los datos que contienen las stats del juego
 
     private String id;
+    private GameStats stats;
     private String lastUpdate;
     private String userID;
     private String diplayName;
     private String displayNameLowerCase;
-    private GameStats gameStats;
+    private Date lastLookup;
+    private Date lasLookupUpdate;
+    private String discordID;
 
 
 
 
-    public Stats(String id, GameStats gameStats) {
+    public Stats(String id, GameStats stats) {
         this.id = id;
         /**
         this.lastUpdate = lastUpdate;
@@ -24,7 +29,7 @@ public class Stats {
         this.displayNameLowerCase = displayNameLowerCase;
 
          **/
-        this.gameStats = gameStats;
+        this.stats = stats;
     }
 
     // Getters
@@ -49,7 +54,7 @@ public class Stats {
         return displayNameLowerCase;
     }
 
-    public GameStats getGameStats() {
-        return gameStats;
+    public GameStats getStats() {
+        return stats;
     }
 }

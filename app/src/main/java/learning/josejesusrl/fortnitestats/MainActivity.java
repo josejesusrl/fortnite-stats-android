@@ -15,7 +15,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -100,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (stats != null){
 
-            GameStats gameStats = stats.getGameStats();
+            GameStats gameStats = stats.getStats();
             arrayListView.clear();
 
             // Ingresamos todos los datos de las estadisticas
