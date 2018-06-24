@@ -38,6 +38,10 @@ public class ApiConnection {
         return statsContainer.getFullStats();
     }
 
+    public StatsContainer getStatsContainer() {
+        return statsContainer;
+    }
+
     private void setUser(String user){
         this.user = user.replaceAll(" ", "%20");
     }
