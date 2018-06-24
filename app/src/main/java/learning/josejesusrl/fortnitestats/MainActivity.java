@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
             arrayListView.clear();
 
             // Ingresamos todos los datos de las estadisticas
-            arrayListView.add("Usuario: "+nt.getUser()+ "("+container.getPlataformName()+")");
+            arrayListView.add("Usuario: "+container.getFullStats().getDiplayName()+ " ("+container.getPlataformName()+")");
             arrayListView.add("Modo de jugo: "+container.getGameMode());
             arrayListView.add("K/D ratio: "+gameStats.getKpd());
             arrayListView.add("Victorias: "+gameStats.getWins());
