@@ -27,8 +27,6 @@ public class ApiConnection {
 
     // Constantes
 
-    private static final String DATE_PATTERN = "yyyy-MM-dd'T'hh:mm:ss";
-
     // Modos de Juego
     public static final int SOLO = 10;
     public static final int DUO = 11;

@@ -7,36 +7,20 @@ public class GmodeStats {
     private GameStats squad;
     private GameStats all;
 
-    public GameStats getSolo() {
+    public GameStats getSoloStats() {
         return solo;
     }
 
-    public void setSolo(GameStats solo) {
-        this.solo = solo;
-    }
-
-    public GameStats getDuo() {
+    public GameStats getDuoStats() {
         return duo;
     }
 
-    public void setDuo(GameStats duo) {
-        this.duo = duo;
-    }
-
-    public GameStats getSquad() {
+    public GameStats getSquadStats() {
         return squad;
     }
 
-    public void setSquad(GameStats squad) {
-        this.squad = squad;
-    }
-
-    public GameStats getAll() {
+    public GameStats getAllStats() {
         return all;
-    }
-
-    public void setAll(GameStats all) {
-        this.all = all;
     }
 
 }

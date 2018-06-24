@@ -130,27 +130,27 @@ public class MainActivity extends AppCompatActivity {
         if (stats != null){
             switch (getPlataformFromSpinner()){
                 case ApiConnection.PC:
-                    gmodeStats = stats.getStats().getPc();
+                    gmodeStats = stats.getStats().fromPC();
                     break;
                 case ApiConnection.PS4:
-                    gmodeStats = stats.getStats().getPs4();
+                    gmodeStats = stats.getStats().fromPS4();
                     break;
                 case ApiConnection.XBOX:
-                    gmodeStats = stats.getStats().getXbox();
+                    gmodeStats = stats.getStats().fromXBOX();
                     break;
             }
             switch (getGamemodeFromSpinner()){
                 case ApiConnection.SOLO:
-                    gameStats = gmodeStats.getSolo();
+                    gameStats = gmodeStats.getSoloStats();
                     break;
                 case ApiConnection.DUO:
-                    gameStats = gmodeStats.getDuo();
+                    gameStats = gmodeStats.getDuoStats();
                     break;
                 case ApiConnection.SQUAD:
-                    gameStats = gmodeStats.getSquad();
+                    gameStats = gmodeStats.getSquadStats();
                     break;
                 case ApiConnection.ALL:
-                    gameStats = gmodeStats.getAll();
+                    gameStats = gmodeStats.getAllStats();
                     break;
 
             }

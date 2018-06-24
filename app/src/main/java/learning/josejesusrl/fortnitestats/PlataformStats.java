@@ -5,27 +5,27 @@ public class PlataformStats {
     private GmodeStats ps4;
     private GmodeStats xbox;
 
-    public GmodeStats getPc() {
+    public GmodeStats fromPC() {
         return pc;
     }
 
-    public void setPc(GmodeStats pc) {
+    public void setPcStats(GmodeStats pc) {
         this.pc = pc;
     }
 
-    public GmodeStats getPs4() {
+    public GmodeStats fromPS4() {
         return ps4;
     }
 
-    public void setPs4(GmodeStats ps4) {
+    public void setPs4Stats(GmodeStats ps4) {
         this.ps4 = ps4;
     }
 
-    public GmodeStats getXbox() {
+    public GmodeStats fromXBOX() {
         return xbox;
     }
 
-    public void setXbox(GmodeStats xbox) {
+    public void setXboxStats(GmodeStats xbox) {
         this.xbox = xbox;
     }
 
