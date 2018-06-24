@@ -6,7 +6,7 @@ public class Stats {
 
     // Todos los datos que contienen las stats del juego
 
-    private PlayerStats stats;
+    private PlataformStats stats;
     private String lastUpdate;
     private String userID;
     private String diplayName;
@@ -16,11 +16,11 @@ public class Stats {
     private String discordID;
 
 
-    public PlayerStats getStats() {
+    public PlataformStats getStats() {
         return stats;
     }
 
-    public void setStats(PlayerStats stats) {
+    public void setStats(PlataformStats stats) {
         this.stats = stats;
     }
 

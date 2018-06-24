@@ -1,6 +1,6 @@
 package learning.josejesusrl.fortnitestats;
 
-public class PlayerStats {
+public class PlataformStats {
     private GmodeStats pc;
     private GmodeStats ps4;
     private GmodeStats xbox;
