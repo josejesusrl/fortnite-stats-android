@@ -123,8 +123,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Metodo para colocar las estadisticas en la GUI obtenidas del AsyncTask
-    private void putStats(ApiConnection nt){
-        StatsContainer container = nt.getStatsContainer();
+    private void putStats(StatsContainer container){
         GameStats gameStats = container.getStatsFromOn(getPlataformFromSpinner(), getGamemodeFromSpinner());
 
         if (gameStats != null){
@@ -196,9 +195,13 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), "No se encontro el jugador", Toast.LENGTH_SHORT).show();
                 Log.w("GetStatsAsync", "No se encontró el jugador u ocurrió un error al descargar las estadísticas ");
             }else{
-                // Ya con las Stats descargadas colocamos las stats en la gui
-                putStats(stats);
-                Toast.makeText(getBaseContext(), "Descarga de estadísticas finalizada", Toast.LENGTH_SHORT).show();
+                if (stats.getStatsContainer() != null) {
+                    putStats(stats.getStatsContainer());
+                    Toast.makeText(getBaseContext(), "Descarga de estadísticas finalizada", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getBaseContext(), "No se encontro el nombre del jugador", Toast.LENGTH_SHORT).show();
+                    Log.e("GetStatsAsync", "El  Contenedor de Estadisticas esta vacio ");
+                }
             }
 
         }
