@@ -58,8 +58,13 @@ public class ApiConnection {
         try {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             StatsContainer statsContainer = gson.fromJson(reader, StatsContainer.class);
-            Log.d("ApiConn", "stats: "+statsContainer.toString());
-            return statsContainer;
+            if (statsContainer != null) {
+                Log.d("ApiConn", "stats: " + statsContainer.toString());
+                return statsContainer;
+            }else{
+                Log.e("ApiConn", "Usuario no encontrado");
+                return null;
+            }
         } finally {
             reader.close();
         }
