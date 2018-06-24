@@ -128,37 +128,12 @@ public class MainActivity extends AppCompatActivity {
         GmodeStats gmodeStats = null;
         GameStats gameStats = null;
         if (stats != null){
-            switch (getPlataformFromSpinner()){
-                case ApiConnection.PC:
-                    gmodeStats = stats.getStats().fromPC();
-                    break;
-                case ApiConnection.PS4:
-                    gmodeStats = stats.getStats().fromPS4();
-                    break;
-                case ApiConnection.XBOX:
-                    gmodeStats = stats.getStats().fromXBOX();
-                    break;
-            }
-            switch (getGamemodeFromSpinner()){
-                case ApiConnection.SOLO:
-                    gameStats = gmodeStats.getSoloStats();
-                    break;
-                case ApiConnection.DUO:
-                    gameStats = gmodeStats.getDuoStats();
-                    break;
-                case ApiConnection.SQUAD:
-                    gameStats = gmodeStats.getSquadStats();
-                    break;
-                case ApiConnection.ALL:
-                    gameStats = gmodeStats.getAllStats();
-                    break;
 
-            }
             arrayListView.clear();
 
             // Ingresamos todos los datos de las estadisticas
             arrayListView.add("Usuario: "+nt.getUser());
-            arrayListView.add("Modo de jugo: "+nt.getGameMode());
+            arrayListView.add("Modo de jugo: "+nt.getPlayerStats());
             arrayListView.add("K/D ratio: "+gameStats.getKpd());
             arrayListView.add("Victorias: "+gameStats.getWins());
             arrayListView.add("Ratio de Victorias: "+gameStats.getWinRate());
@@ -179,17 +154,17 @@ public class MainActivity extends AppCompatActivity {
     private int getGamemodeFromSpinner(){
         switch (snGamemode.getSelectedItemPosition()){
             case 0:
-                Log.d("MainAct.getGamemode", "Modo de juego seleccionado: "+ ApiConnection.SOLO);
-                return ApiConnection.SOLO;
+                Log.d("MainAct.getGamemode", "Modo de juego seleccionado: "+ StatsContainer.SOLO);
+                return StatsContainer.SOLO;
             case 1:
-                Log.d("MainAct.getGamemode", "Modo de juego seleccionado: "+ ApiConnection.DUO);
-                return ApiConnection.DUO;
+                Log.d("MainAct.getGamemode", "Modo de juego seleccionado: "+ StatsContainer.DUO);
+                return StatsContainer.DUO;
             case 2:
-                Log.d("MainAct.getGamemode", "Modo de juego seleccionado: "+ ApiConnection.SQUAD);
-                return ApiConnection.SQUAD;
+                Log.d("MainAct.getGamemode", "Modo de juego seleccionado: "+ StatsContainer.SQUAD);
+                return StatsContainer.SQUAD;
             case 3:
-                Log.d("MainAct.getGamemode", "Modo de juego seleccionado: "+ ApiConnection.ALL);
-                return ApiConnection.ALL;
+                Log.d("MainAct.getGamemode", "Modo de juego seleccionado: "+ StatsContainer.ALL);
+                return StatsContainer.ALL;
             default:
                 Log.d("MainAct.getGamemode", "Modo de juego seleccionado: "+-1);
                 return -1;
@@ -198,14 +173,14 @@ public class MainActivity extends AppCompatActivity {
     private int getPlataformFromSpinner(){
         switch (snPlataform.getSelectedItemPosition()){
             case 0:
-                Log.d("MainAct.getPlataform", "Plataforma seleccionada: "+ ApiConnection.PC);
-                return ApiConnection.PC;
+                Log.d("MainAct.getPlataform", "Plataforma seleccionada: "+ StatsContainer.PC);
+                return StatsContainer.PC;
             case 1:
-                Log.d("MainAct.getPlataform", "Plataforma seleccionada: "+ ApiConnection.PS4);
-                return ApiConnection.PS4;
+                Log.d("MainAct.getPlataform", "Plataforma seleccionada: "+ StatsContainer.PS4);
+                return StatsContainer.PS4;
             case 2:
-                Log.d("MainAct.getPlataform", "Plataforma seleccionada: "+ ApiConnection.XBOX);
-                return ApiConnection.XBOX;
+                Log.d("MainAct.getPlataform", "Plataforma seleccionada: "+ StatsContainer.XBOX);
+                return StatsContainer.XBOX;
             default:
                 Log.d("MainAct.getPlataform", "Plataforma seleccionada: "+-1);
                 return -1;
