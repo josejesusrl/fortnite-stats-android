@@ -45,9 +45,6 @@ public class ApiConnection {
     private void setUser(String user){
         this.user = user.replaceAll(" ", "%20");
     }
-    public String getUser() {
-        return user.replaceAll("%20"," ");
-    }
 
 
     /**
@@ -74,8 +71,7 @@ public class ApiConnection {
         URL fortniteStatsEndPoint = null;
 
         try {
-            fortniteStatsEndPoint = new URL(EP_stats + getUser());
-
+            fortniteStatsEndPoint = new URL(EP_stats + user);
             // Creamos la conexion al EndPoint
             HttpsURLConnection apiConn =
                     (HttpsURLConnection) fortniteStatsEndPoint.openConnection();
