@@ -1,5 +1,7 @@
 package learning.josejesusrl.fortnitestats;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Stats {
@@ -11,7 +13,7 @@ public class Stats {
     private String diplayName;
     private String displayNameLowerCase;
     private Date lastLookup;
-    private Date lasLookupUpdate;
+    private Date lastLookupUpdate;
     private String discordID;
 
     private PlataformStats stats;
@@ -36,12 +38,32 @@ public class Stats {
         return displayNameLowerCase;
     }
 
-    public Date getLastLookup() {
-        return lastLookup;
+    public String getLastLookup() {
+        try {
+            String dateSubString = lastLookup.toString().substring(0, 10);
+            SimpleDateFormat parser = new SimpleDateFormat("yy-MM-dd");
+            SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yy");
+
+            Date date = parser.parse(dateSubString);
+            return formater.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
-    public Date getLasLookupUpdate() {
-        return lasLookupUpdate;
+    public String getLasLookupUpdate() {
+        try {
+            String dateSubString = lastLookupUpdate.toString().substring(0, 10);
+            SimpleDateFormat parser = new SimpleDateFormat("yy-MM-dd");
+            SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yy");
+
+            Date date = parser.parse(dateSubString);
+            return formater.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public String getDiscordID() {
