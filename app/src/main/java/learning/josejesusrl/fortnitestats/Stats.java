@@ -4,7 +4,6 @@ import java.util.Date;
 
 public class Stats {
 
-
     // Todos los datos que contienen las stats del juego
 
     private PlayerStats stats;
@@ -15,35 +14,66 @@ public class Stats {
     private Date lastLookup;
     private Date lasLookupUpdate;
     private String discordID;
+    
 
-    // Setters
+    public PlayerStats getStats() {
+        return stats;
+    }
 
     public void setStats(PlayerStats stats) {
         this.stats = stats;
+    }
+
+    public String getLastUpdate() {
+        return lastUpdate;
     }
 
     public void setLastUpdate(String lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 
+    public String getUserID() {
+        return userID;
+    }
+
     public void setUserID(String userID) {
         this.userID = userID;
+    }
+
+    public String getDiplayName() {
+        return diplayName;
     }
 
     public void setDiplayName(String diplayName) {
         this.diplayName = diplayName;
     }
 
+    public String getDisplayNameLowerCase() {
+        return displayNameLowerCase;
+    }
+
     public void setDisplayNameLowerCase(String displayNameLowerCase) {
         this.displayNameLowerCase = displayNameLowerCase;
+    }
+
+    public Date getLastLookup() {
+        return lastLookup;
     }
 
     public void setLastLookup(Date lastLookup) {
         this.lastLookup = lastLookup;
     }
 
+    public Date getLasLookupUpdate() {
+        return lasLookupUpdate;
+    }
+
     public void setLasLookupUpdate(Date lasLookupUpdate) {
         this.lasLookupUpdate = lasLookupUpdate;
+    }
+
+    public String getDiscordID() {
+        return discordID;
     }
 
     public void setDiscordID(String discordID) {
@@ -52,30 +82,5 @@ public class Stats {
 
 
 
-    public Stats(String id, PlayerStats stats) {
-        this.stats = stats;
-    }
 
-    // Getters
-
-
-    public String getLastUpdate() {
-        return lastUpdate;
-    }
-
-    public String getUserID() {
-        return userID;
-    }
-
-    public String getDiplayName() {
-        return diplayName;
-    }
-
-    public String getDisplayNameLowerCase() {
-        return displayNameLowerCase;
-    }
-
-    public PlayerStats getStats() {
-        return stats;
-    }
 }
