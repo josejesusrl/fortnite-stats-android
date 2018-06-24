@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
 
         }else{
             Log.w("MainActivity", "Las estadisticas GameStats son nullas");
-            Toast.makeText(this,"No se encontró el nombre de jugador o no existe en la esa plataforma", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"No se encontraron las estadísticas en esa plataforma o modo de juego", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -192,8 +192,8 @@ public class MainActivity extends AppCompatActivity {
            // super.onPostExecute(apiConnection);
             progressDialog.dismiss();
             if (apiConnection.getErrors().isEmpty()){
-                putStats(apiConnection.getStatsContainer());
                 Toast.makeText(getBaseContext(), "Descarga finalizada", Toast.LENGTH_SHORT).show();
+                putStats(apiConnection.getStatsContainer());
             }else{
                 for (int i=0; i < apiConnection.getErrors().size(); i++){
                     Toast.makeText(getBaseContext(), apiConnection.getErrors().get(i), Toast.LENGTH_LONG).show();
