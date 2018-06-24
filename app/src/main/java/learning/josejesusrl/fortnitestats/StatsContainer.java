@@ -107,15 +107,28 @@ public class StatsContainer {
     }
     // Obtener las stats de un mododo de juego y plataforma especifica
     private GameStats getStatsOf(){
+        GmodeStats plataformStats = getStatsFrom();
         switch (this.gameMode) {
             case SOLO:
-                return getStatsFrom().getSoloStats();
+                if (plataformStats != null)
+                    return getStatsFrom().getSoloStats();
+                else
+                    return null;
             case DUO:
-                return getStatsFrom().getDuoStats();
+                if (plataformStats != null)
+                    return getStatsFrom().getDuoStats();
+                else
+                    return null;
             case SQUAD:
-                return getStatsFrom().getSquadStats();
+                if (plataformStats != null)
+                    return getStatsFrom().getSquadStats();
+                else
+                    return null;
             case ALL:
-                return getStatsFrom().getAllStats();
+                if (plataformStats != null)
+                    return getStatsFrom().getAllStats();
+                else
+                    return null;
         }
         return null;
     }
