@@ -80,7 +80,29 @@ public class MainActivity extends AppCompatActivity {
         etPlayer.setText("");
     }
 
+    // Guardamos los datos del usuario
+    public void saveUserPreference(View v){
+        String playerName = etPlayer.getText().toString();
+        int gamemode = snGamemode.getSelectedItemPosition();
+        int plataform = snPlataform.getSelectedItemPosition();
 
+        SharedPreferences preferences = getSharedPreferences("FortniteStats", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        // Verificamos si ya tiene guardadas las preferencias si es asi borrar el archivo para dejar de cargar los archivos guardados al inicio de la app
+        if (preferences.contains("playerName")){
+            editor.clear();
+            editor.commit();
+            Toast.makeText(this, "Los datos del jugador fueron borrados", Toast.LENGTH_SHORT).show();
+        }else {
+            editor.putString("playerName", playerName);
+            editor.putInt("gamemode", gamemode);
+            editor.putInt("plataform", plataform);
+            editor.commit();
+
+            Toast.makeText(this, "Los datos del jugador han sido guardados", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     // Obtenemos las estadicas llamando al objeto Stats que se encarga de depurar las estadisticas
     public void getStats(View v){
@@ -149,30 +171,6 @@ public class MainActivity extends AppCompatActivity {
         }else{
             Log.w("MainActivity", "Los Stats son nullos");
             Toast.makeText(this,"No se encontró el nombre de jugador", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    // Guardamos los datos del usuario
-    public void saveUserPreference(View v){
-        String playerName = etPlayer.getText().toString();
-        int gamemode = snGamemode.getSelectedItemPosition();
-        int plataform = snPlataform.getSelectedItemPosition();
-
-        SharedPreferences preferences = getSharedPreferences("FortniteStats", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-
-        // Verificamos si ya tiene guardadas las preferencias si es asi borrar el archivo para dejar de cargar los archivos guardados al inicio de la app
-        if (preferences.contains("playerName")){
-            editor.clear();
-            editor.commit();
-            Toast.makeText(this, "Los datos del jugador fueron borrados", Toast.LENGTH_SHORT).show();
-        }else {
-            editor.putString("playerName", playerName);
-            editor.putInt("gamemode", gamemode);
-            editor.putInt("plataform", plataform);
-            editor.commit();
-
-            Toast.makeText(this, "Los datos del jugador han sido guardados", Toast.LENGTH_SHORT).show();
         }
     }
 
