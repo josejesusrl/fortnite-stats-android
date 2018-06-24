@@ -128,11 +128,10 @@ public class MainActivity extends AppCompatActivity {
         GameStats gameStats = container.getStatsFromOn(getPlataformFromSpinner(), getGamemodeFromSpinner());
 
         if (gameStats != null){
-
             arrayListView.clear();
 
             // Ingresamos todos los datos de las estadisticas
-            arrayListView.add("Usuario: "+container.getFullStats().getDisplayName()+ " ("+container.getPlataformName()+")");
+            arrayListView.add("Usuario: "+container.getDisplayName()+ " ("+container.getPlataformName()+")");
             arrayListView.add("Modo de jugo: "+container.getGameMode());
             arrayListView.add("K/D ratio: "+gameStats.getKpd());
             arrayListView.add("Victorias: "+gameStats.getWins());
