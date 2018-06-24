@@ -124,16 +124,16 @@ public class MainActivity extends AppCompatActivity {
 
     // Metodo para colocar las estadisticas en la GUI obtenidas del AsyncTask
     private void putStats(ApiConnection nt){
-        Stats stats = nt.getPlayerStats();
-        GmodeStats gmodeStats = null;
-        GameStats gameStats = null;
-        if (stats != null){
+        StatsContainer container = nt.getStatsContainer();
+        GameStats gameStats = container.getStatsFromOn(getPlataformFromSpinner(), getGamemodeFromSpinner());
+
+        if (gameStats != null){
 
             arrayListView.clear();
 
             // Ingresamos todos los datos de las estadisticas
             arrayListView.add("Usuario: "+nt.getUser());
-            arrayListView.add("Modo de jugo: "+nt.getPlayerStats());
+            arrayListView.add("Modo de jugo: "+container.getGameMode());
             arrayListView.add("K/D ratio: "+gameStats.getKpd());
             arrayListView.add("Victorias: "+gameStats.getWins());
             arrayListView.add("Ratio de Victorias: "+gameStats.getWinRate());
@@ -144,8 +144,8 @@ public class MainActivity extends AppCompatActivity {
             listViewAdapter.notifyDataSetChanged();
 
         }else{
-            Log.w("MainActivity", "Los Stats son nullos");
-            Toast.makeText(this,"No se encontró el nombre de jugador", Toast.LENGTH_SHORT).show();
+            Log.w("MainActivity", "Las estadisticas GameStats son nullas");
+            Toast.makeText(this,"No se encontró el nombre de jugador o no existe en la esa plataforma", Toast.LENGTH_SHORT).show();
         }
     }
 
