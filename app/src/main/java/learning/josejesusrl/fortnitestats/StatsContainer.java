@@ -1,7 +1,7 @@
 package learning.josejesusrl.fortnitestats;
 
 public class StatsContainer {
-    private Stats stats;
+    private Stats br;
 
-    public Stats getStats(){return stats;}
+    public Stats getStats(){return br;}
 }
