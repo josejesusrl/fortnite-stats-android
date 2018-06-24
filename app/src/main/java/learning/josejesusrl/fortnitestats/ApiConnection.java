@@ -42,7 +42,9 @@ public class ApiConnection {
 
     // Getters and Setters
 
-
+    public List<String> getErrors(){
+        return errors;
+    }
     public StatsContainer getStatsContainer() {
         return statsContainer;
     }
