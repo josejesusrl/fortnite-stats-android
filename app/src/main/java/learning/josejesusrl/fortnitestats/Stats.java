@@ -14,7 +14,7 @@ public class Stats {
     private Date lastLookup;
     private Date lasLookupUpdate;
     private String discordID;
-    
+
 
     public PlayerStats getStats() {
         return stats;
