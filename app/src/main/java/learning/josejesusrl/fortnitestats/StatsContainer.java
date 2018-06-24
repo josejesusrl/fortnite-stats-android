@@ -5,11 +5,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class StatsContainer {
-    private Stats br;
+    // Atributos para filtrar Stats
     int plataform;
     int gameMode;
 
     // Datos del Json
+    private Stats br;
     private String lastUpdate;
     private String userID;
     private String displayName;
