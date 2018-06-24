@@ -56,42 +56,49 @@ public class MainActivity extends AppCompatActivity {
         getUserPreference();
     }
 
-    private int getGamemodeFromSpinner(){
-        switch (snGamemode.getSelectedItemPosition()){
-            case 0:
-                Log.d("MainAct.getGamemode", "Modo de juego seleccionado: "+ ApiConnection.SOLO);
-                return ApiConnection.SOLO;
-            case 1:
-                Log.d("MainAct.getGamemode", "Modo de juego seleccionado: "+ ApiConnection.DUO);
-                return ApiConnection.DUO;
-            case 2:
-                Log.d("MainAct.getGamemode", "Modo de juego seleccionado: "+ ApiConnection.SQUAD);
-                return ApiConnection.SQUAD;
-            case 3:
-                Log.d("MainAct.getGamemode", "Modo de juego seleccionado: "+ ApiConnection.ALL);
-                return ApiConnection.ALL;
-            default:
-                Log.d("MainAct.getGamemode", "Modo de juego seleccionado: "+-1);
-                return -1;
-        }
-    }
-    private int getPlataformFromSpinner(){
-        switch (snPlataform.getSelectedItemPosition()){
-            case 0:
-                Log.d("MainAct.getPlataform", "Plataforma seleccionada: "+ ApiConnection.PC);
-                return ApiConnection.PC;
-            case 1:
-                Log.d("MainAct.getPlataform", "Plataforma seleccionada: "+ ApiConnection.PS4);
-                return ApiConnection.PS4;
-            case 2:
-                Log.d("MainAct.getPlataform", "Plataforma seleccionada: "+ ApiConnection.XBOX);
-                return ApiConnection.XBOX;
-            default:
-                Log.d("MainAct.getPlataform", "Plataforma seleccionada: "+-1);
-                return -1;
-        }
+    private void getUserPreference(){
+        SharedPreferences preferences = getSharedPreferences("FortniteStats", Context.MODE_PRIVATE);
+        etPlayer.setText(preferences.getString("playerName", ""));
+        snGamemode.setSelection(preferences.getInt("gamemode", 0));
+        snPlataform.setSelection(preferences.getInt("plataform", 0));
     }
 
+    // Funcion para limpiar todos los campos
+    public void clearFields(View v){
+
+        // Limpiamos el ListView
+        arrayListView.clear();
+        listViewAdapter.notifyDataSetChanged();
+
+        // Limpiamos el spinner snPlataform
+        snPlataform.setSelection(0);
+
+        // Limpiamos el spinner snGamemode
+        snGamemode.setSelection(0);
+
+        // Limpiamos el editText usuario
+        etPlayer.setText("");
+    }
+
+
+
+    // Obtenemos las estadicas llamando al objeto Stats que se encarga de depurar las estadisticas
+    public void getStats(View v){
+        if (getPlataformFromSpinner() == -1){
+            Toast.makeText(this, "Por favor selecciona una plataforma", Toast.LENGTH_SHORT);
+            Log.i("MainAct.downloadStats()", "No se a seleccionado ninguna plataforma");
+        }
+        if (getGamemodeFromSpinner() == -1){
+            Toast.makeText(this, "Por favor selecciona un modo de juego", Toast.LENGTH_SHORT);
+            Log.i("MainAct.downloadStats()", "No se a seleccionado ningun modo de juego");
+        }
+        if (getPlataformFromSpinner() != -1 && getGamemodeFromSpinner() != -1){
+            // Creamos el AsyncTask para mantener la gui en un thread diferente
+            GetStatsOnAsyncTask getStatsOnAsyncTask = new GetStatsOnAsyncTask();
+            getStatsOnAsyncTask.execute(etPlayer.getText().toString(), String.valueOf(getPlataformFromSpinner()), String.valueOf(getGamemodeFromSpinner()));
+        }
+
+    }
 
     // Metodo para colocar las estadisticas en la GUI obtenidas del AsyncTask
     private void putStats(ApiConnection nt){
@@ -145,24 +152,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // Obtenemos las estadicas llamando al objeto Stats que se encarga de depurar las estadisticas
-    public void getStats(View v){
-        if (getPlataformFromSpinner() == -1){
-            Toast.makeText(this, "Por favor selecciona una plataforma", Toast.LENGTH_SHORT);
-            Log.i("MainAct.downloadStats()", "No se a seleccionado ninguna plataforma");
-        }
-        if (getGamemodeFromSpinner() == -1){
-            Toast.makeText(this, "Por favor selecciona un modo de juego", Toast.LENGTH_SHORT);
-            Log.i("MainAct.downloadStats()", "No se a seleccionado ningun modo de juego");
-        }
-        if (getPlataformFromSpinner() != -1 && getGamemodeFromSpinner() != -1){
-            // Creamos el AsyncTask para mantener la gui en un thread diferente
-            GetStatsOnAsyncTask getStatsOnAsyncTask = new GetStatsOnAsyncTask();
-            getStatsOnAsyncTask.execute(etPlayer.getText().toString(), String.valueOf(getPlataformFromSpinner()), String.valueOf(getGamemodeFromSpinner()));
-        }
-
-    }
-
     // Guardamos los datos del usuario
     public void saveUserPreference(View v){
         String playerName = etPlayer.getText().toString();
@@ -187,28 +176,42 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void getUserPreference(){
-        SharedPreferences preferences = getSharedPreferences("FortniteStats", Context.MODE_PRIVATE);
-        etPlayer.setText(preferences.getString("playerName", ""));
-        snGamemode.setSelection(preferences.getInt("gamemode", 0));
-        snPlataform.setSelection(preferences.getInt("plataform", 0));
+
+
+    private int getGamemodeFromSpinner(){
+        switch (snGamemode.getSelectedItemPosition()){
+            case 0:
+                Log.d("MainAct.getGamemode", "Modo de juego seleccionado: "+ ApiConnection.SOLO);
+                return ApiConnection.SOLO;
+            case 1:
+                Log.d("MainAct.getGamemode", "Modo de juego seleccionado: "+ ApiConnection.DUO);
+                return ApiConnection.DUO;
+            case 2:
+                Log.d("MainAct.getGamemode", "Modo de juego seleccionado: "+ ApiConnection.SQUAD);
+                return ApiConnection.SQUAD;
+            case 3:
+                Log.d("MainAct.getGamemode", "Modo de juego seleccionado: "+ ApiConnection.ALL);
+                return ApiConnection.ALL;
+            default:
+                Log.d("MainAct.getGamemode", "Modo de juego seleccionado: "+-1);
+                return -1;
+        }
     }
-
-    // Funcion para limpiar todos los campos
-    public void clearFields(View v){
-
-        // Limpiamos el ListView
-        arrayListView.clear();
-        listViewAdapter.notifyDataSetChanged();
-
-        // Limpiamos el spinner snPlataform
-        snPlataform.setSelection(0);
-
-        // Limpiamos el spinner snGamemode
-        snGamemode.setSelection(0);
-
-        // Limpiamos el editText usuario
-        etPlayer.setText("");
+    private int getPlataformFromSpinner(){
+        switch (snPlataform.getSelectedItemPosition()){
+            case 0:
+                Log.d("MainAct.getPlataform", "Plataforma seleccionada: "+ ApiConnection.PC);
+                return ApiConnection.PC;
+            case 1:
+                Log.d("MainAct.getPlataform", "Plataforma seleccionada: "+ ApiConnection.PS4);
+                return ApiConnection.PS4;
+            case 2:
+                Log.d("MainAct.getPlataform", "Plataforma seleccionada: "+ ApiConnection.XBOX);
+                return ApiConnection.XBOX;
+            default:
+                Log.d("MainAct.getPlataform", "Plataforma seleccionada: "+-1);
+                return -1;
+        }
     }
 
     private class GetStatsOnAsyncTask extends AsyncTask<String, Void, ApiConnection>{

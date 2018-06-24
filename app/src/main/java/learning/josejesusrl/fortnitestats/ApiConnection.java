@@ -42,13 +42,11 @@ public class ApiConnection {
 
     // Fin Constantes
 
-    // Constructor
-    public ApiConnection(String user, int plataform, int gameMode) {
 
+    public ApiConnection(String user, int plataform, int gameMode) {
         setUser(user);
         setPlataform(plataform);
         setGameMode(gameMode);
-
         // Agregamos el API Key
         apiKey = "fyHRmMRjJg6FTgkbfASi";
         // Agregamos los EndPoints
@@ -57,6 +55,9 @@ public class ApiConnection {
 
 
     // Getters
+    public Stats getPlayerStats(){
+        return stats;
+    }
 
     // Metodo para obtener el nombre de la plataforma para el usuario final
     public String getPlataformName() {
@@ -80,11 +81,6 @@ public class ApiConnection {
         }
         return null;
     }
-
-    public String getUser() {
-        return user.replaceAll("%20"," ");
-    }
-
     public String getGameMode() {
         if(gameMode == SOLO){
             return "Solo";
@@ -100,21 +96,11 @@ public class ApiConnection {
         }
         return null;
     }
-    public Stats getPlayerStats(){
-        return stats;
-    }
+
 
 
     // Setters
 
-    public void setStats(Stats stats){
-        this.stats = stats;
-    }
-
-    public void setUser(String user){
-        this.user = user.replaceAll(" ", "%20");
-    }
-    // Setteamos la plataforma si no concide con ninguno pone -1
     public void setPlataform(int plataform){
         if (plataform == PC){
             this.plataform = PC;
@@ -126,7 +112,6 @@ public class ApiConnection {
             this.plataform = -1;
         }
     }
-    // Setteamos el modo de juego si no conide con ninguno pone -1
     public void setGameMode(int gameMode){
         if (gameMode == SOLO){
             this.gameMode = SOLO;
@@ -141,9 +126,14 @@ public class ApiConnection {
         }
     }
 
+    // Metodos principales
 
-
-
+    public void setUser(String user){
+        this.user = user.replaceAll(" ", "%20");
+    }
+    public String getUser() {
+        return user.replaceAll("%20"," ");
+    }
 
     // Creamos un reader para serealizar el JSON
     private Stats parseJson(InputStream in) throws IOException {
@@ -182,7 +172,7 @@ public class ApiConnection {
                 InputStream responseBody = statsConnection.getInputStream();
 
                 // Enviamos a procesar los datos del Json y guaramos el objeto para ser consultado por otras clases
-                setStats(parseJson(responseBody));
+                stats = parseJson(responseBody);
 
                 // Cerramos la conexion
                 statsConnection.disconnect();
