@@ -61,17 +61,7 @@ public class GameStats {
     }
 
     public String getLastMatch() {
-        try {
-            String dateSubString = lastMatch.substring(0, 10);
-            SimpleDateFormat parser = new SimpleDateFormat("yy-MM-dd");
-            SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yy");
-
-            Date date = parser.parse(dateSubString);
-            return formater.format(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return lastMatch;
     }
 
     public void setLastMatch(String lastMatch) {
