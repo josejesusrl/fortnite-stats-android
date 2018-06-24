@@ -7,8 +7,7 @@ public class Stats {
 
     // Todos los datos que contienen las stats del juego
 
-    private String id;
-    private PlataformStats stats;
+    private PlayerStats stats;
     private String lastUpdate;
     private String userID;
     private String diplayName;
@@ -17,26 +16,48 @@ public class Stats {
     private Date lasLookupUpdate;
     private String discordID;
 
+    // Setters
 
+    public void setStats(PlayerStats stats) {
+        this.stats = stats;
+    }
 
-
-    public Stats(String id, PlataformStats stats) {
-        this.id = id;
-        /**
+    public void setLastUpdate(String lastUpdate) {
         this.lastUpdate = lastUpdate;
-        this.userID = userID;
-        this.diplayName = diplayName;
-        this.displayNameLowerCase = displayNameLowerCase;
+    }
 
-         **/
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    public void setDiplayName(String diplayName) {
+        this.diplayName = diplayName;
+    }
+
+    public void setDisplayNameLowerCase(String displayNameLowerCase) {
+        this.displayNameLowerCase = displayNameLowerCase;
+    }
+
+    public void setLastLookup(Date lastLookup) {
+        this.lastLookup = lastLookup;
+    }
+
+    public void setLasLookupUpdate(Date lasLookupUpdate) {
+        this.lasLookupUpdate = lasLookupUpdate;
+    }
+
+    public void setDiscordID(String discordID) {
+        this.discordID = discordID;
+    }
+
+
+
+    public Stats(String id, PlayerStats stats) {
         this.stats = stats;
     }
 
     // Getters
 
-    public String getId() {
-        return id;
-    }
 
     public String getLastUpdate() {
         return lastUpdate;
@@ -54,7 +75,7 @@ public class Stats {
         return displayNameLowerCase;
     }
 
-    public PlataformStats getStats() {
+    public PlayerStats getStats() {
         return stats;
     }
 }
