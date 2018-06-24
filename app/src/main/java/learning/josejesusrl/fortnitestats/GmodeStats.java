@@ -2,10 +2,10 @@ package learning.josejesusrl.fortnitestats;
 
 public class GmodeStats {
 
-    private GameStats solo;
-    private GameStats duo;
-    private GameStats squad;
-    private GameStats all;
+    private GameStats solo = null;
+    private GameStats duo = null;
+    private GameStats squad = null;
+    private GameStats all = null;
 
     public GameStats getSoloStats() {
         return solo;
