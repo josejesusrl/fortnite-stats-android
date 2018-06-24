@@ -1,9 +1,9 @@
 package learning.josejesusrl.fortnitestats;
 
 public class PlataformStats {
-    private GmodeStats pc;
-    private GmodeStats ps4;
-    private GmodeStats xbox;
+    private GmodeStats pc = null;
+    private GmodeStats ps4 = null;
+    private GmodeStats xbox = null;
 
     public GmodeStats fromPC() {
         return pc;
