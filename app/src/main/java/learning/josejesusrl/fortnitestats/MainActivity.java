@@ -188,19 +188,15 @@ public class MainActivity extends AppCompatActivity {
     private class GetStatsOnAsyncTask extends AsyncTask<String, Void, ApiConnection>{
 
         @Override
-        protected void onPostExecute(ApiConnection stats) {
+        protected void onPostExecute(ApiConnection apiConnection) {
            // super.onPostExecute(apiConnection);
             progressDialog.dismiss();
-            if (stats == null){
-                Toast.makeText(getBaseContext(), "No se encontro el jugador", Toast.LENGTH_SHORT).show();
-                Log.w("GetStatsAsync", "No se encontró el jugador u ocurrió un error al descargar las estadísticas ");
+            if (apiConnection.getErrors().isEmpty()){
+                putStats(apiConnection.getStatsContainer());
+                Toast.makeText(getBaseContext(), "Descarga finalizada", Toast.LENGTH_SHORT).show();
             }else{
-                if (stats.getStatsContainer() != null) {
-                    putStats(stats.getStatsContainer());
-                    Toast.makeText(getBaseContext(), "Descarga de estadísticas finalizada", Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(getBaseContext(), "No se encontro el nombre del jugador", Toast.LENGTH_SHORT).show();
-                    Log.e("GetStatsAsync", "El  Contenedor de Estadisticas esta vacio ");
+                for (int i=0; i < apiConnection.getErrors().size(); i++){
+                    Toast.makeText(getBaseContext(), apiConnection.getErrors().get(i), Toast.LENGTH_LONG).show();
                 }
             }
 
