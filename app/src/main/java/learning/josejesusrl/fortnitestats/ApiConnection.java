@@ -11,6 +11,8 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -21,12 +23,17 @@ public class ApiConnection {
     private int plataform, gameMode;
     private StatsContainer statsContainer;
 
+    // Lista donde se guardaran los errores en tiempo de ejecuion
+    private List<String> errors;
+
     // Endpoints
     private String EP_stats;
 
 
     public ApiConnection(String user, int plataform, int gameMode) {
         setUser(user);
+        // Iniciamos nuestra lista de errores
+        errors = new ArrayList<String>();
         // Agregamos el API Key
         apiKey = "fyHRmMRjJg6FTgkbfASi";
         // Agregamos los EndPoints
@@ -34,9 +41,7 @@ public class ApiConnection {
     }
 
     // Getters and Setters
-    public Stats getPlayerStats(){
-        return statsContainer.getFullStats();
-    }
+
 
     public StatsContainer getStatsContainer() {
         return statsContainer;
@@ -58,13 +63,8 @@ public class ApiConnection {
         try {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             StatsContainer statsContainer = gson.fromJson(reader, StatsContainer.class);
-            if (statsContainer != null) {
-                Log.d("ApiConn", "stats: " + statsContainer.toString());
-                return statsContainer;
-            }else{
-                Log.e("ApiConn", "Usuario no encontrado");
-                return null;
-            }
+            Log.d("ApiConn", "stats: " + statsContainer.toString());
+            return statsContainer;
         } finally {
             reader.close();
         }
@@ -72,8 +72,7 @@ public class ApiConnection {
 
     // Funcion principal para obtener las estadisticas del jugador
     public void downloadStats() {
-        Stats estadisticas;
-        URL fortniteStatsEndPoint = null;
+        URL fortniteStatsEndPoint;
 
         try {
             fortniteStatsEndPoint = new URL(EP_stats + user);
@@ -95,9 +94,18 @@ public class ApiConnection {
 
             } else if (apiConn.getResponseCode() == 503) {
                 Log.w("ApiConn", "Error 503 el servidor");
+                errors.add("Error 503: Demasiadas peticiones al mismo tiempo ");
             } else if (apiConn.getResponseCode() == 429) {
                 Log.w("ApiConn", "Error 429 el servidor");
+                errors.add("Error 429: Volumen de consultas excedidas");
+            }else if(apiConn.getResponseCode() == 429){
+                Log.w("ApiConn", "Error 403 Api Key Error");
+                errors.add("Error 403: Acceso denegado");
+            }else if(apiConn.getResponseCode() == 404){
+                Log.w("ApiConn", "Error 404: Usuario no encontrado");
+                errors.add("Usuario no encontrado, ingresa una cuenta de Epic Games valida");
             }
+
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
