@@ -1,31 +1,31 @@
 package learning.josejesusrl.fortnitestats;
 
 public class PlayerStats {
-    private PlataformStats pc;
-    private PlataformStats ps4;
-    private PlataformStats xbox;
+    private GmodeStats pc;
+    private GmodeStats ps4;
+    private GmodeStats xbox;
 
-    public PlataformStats getPc() {
+    public GmodeStats getPc() {
         return pc;
     }
 
-    public void setPc(PlataformStats pc) {
+    public void setPc(GmodeStats pc) {
         this.pc = pc;
     }
 
-    public PlataformStats getPs4() {
+    public GmodeStats getPs4() {
         return ps4;
     }
 
-    public void setPs4(PlataformStats ps4) {
+    public void setPs4(GmodeStats ps4) {
         this.ps4 = ps4;
     }
 
-    public PlataformStats getXbox() {
+    public GmodeStats getXbox() {
         return xbox;
     }
 
-    public void setXbox(PlataformStats xbox) {
+    public void setXbox(GmodeStats xbox) {
         this.xbox = xbox;
     }
 

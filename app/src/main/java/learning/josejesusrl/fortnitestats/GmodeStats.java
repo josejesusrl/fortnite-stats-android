@@ -1,6 +1,6 @@
 package learning.josejesusrl.fortnitestats;
 
-public class PlataformStats {
+public class GmodeStats {
 
     private GameStats solo;
     private GameStats duo;
