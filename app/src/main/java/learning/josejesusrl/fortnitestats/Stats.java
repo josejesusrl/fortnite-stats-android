@@ -1,55 +1,19 @@
 package learning.josejesusrl.fortnitestats;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Stats {
 
+    // Clase donde se almacena la estructura principal despues de br
 
-    // Todos los datos que contienen las stats del juego
+    private PlataformStats stats;
 
-    private String id;
-    private String lastUpdate;
-    private String userID;
-    private String diplayName;
-    private String displayNameLowerCase;
-    private GameStats gameStats;
-
-
-
-
-    public Stats(String id, GameStats gameStats) {
-        this.id = id;
-        /**
-        this.lastUpdate = lastUpdate;
-        this.userID = userID;
-        this.diplayName = diplayName;
-        this.displayNameLowerCase = displayNameLowerCase;
-
-         **/
-        this.gameStats = gameStats;
+    public PlataformStats getStats() {
+        return stats;
     }
 
-    // Getters
 
-    public String getId() {
-        return id;
-    }
 
-    public String getLastUpdate() {
-        return lastUpdate;
-    }
-
-    public String getUserID() {
-        return userID;
-    }
-
-    public String getDiplayName() {
-        return diplayName;
-    }
-
-    public String getDisplayNameLowerCase() {
-        return displayNameLowerCase;
-    }
-
-    public GameStats getGameStats() {
-        return gameStats;
-    }
 }
